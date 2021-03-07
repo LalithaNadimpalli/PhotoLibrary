@@ -25,13 +25,20 @@ namespace UWPPhotoLibrary
     /// </summary>
     public sealed partial class AllPhotosPage : Page
     {
+
         private ObservableCollection<Photo> photos;
         private IReadOnlyList<StorageFile> SelectedPhotosList;
+
 
         public AllPhotosPage()
         {
             this.InitializeComponent();
-            photos = PhotoManager.GetAllPhotos();
+            photos = new ObservableCollection<Photo>();
+            foreach (var p in staticPhotos)
+            {
+                photos.Add(p);
+            }
+            hashAlbums = AlbumsPage.getAllAbums();
         }
         
         public ObservableCollection<Photo> GetPhotos()
@@ -39,29 +46,30 @@ namespace UWPPhotoLibrary
             return photos;
         }
 
-        /*Below If we dont overide OnNavigatedTo method in this page(AllPhotosPage), There wont be any function to perform and 
-         the page will display allPhotos without any filter. 
-        So, actully we need filter in that page, so we are calling GetPhotosByCategory from photomanager*/
+        /*Below If we dont overide OnNavigatedTo method in this page(AllPhotosPage), There wont be any function 
+            to perform and the page will display allPhotos without any filter. 
+            So, actully we need filter in that page, so we are calling GetPhotosByCategory from photomanager*/
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e != null && e.Parameter != null)
             {
-                if (e.Parameter.GetType() == typeof(AlbumName))
+                /*if (e.Parameter.GetType() == typeof(AssetFolderName))
                 {
-                    var albumType = (AlbumName)e.Parameter;
+                    var albumType = (AssetFolderName)e.Parameter;
                     PhotoManager.GetPhotosByCategory(GetPhotos(), albumType);
-                }
+                }*/
 
-                else if (e.Parameter.GetType() == typeof(List<Photo>))
+                if (e.Parameter.GetType() == typeof(List<Photo>))
                 {
                     var pickedPhotos = (List<Photo>)e.Parameter;
                     foreach (var photo in pickedPhotos)
                     {
+                        staticPhotos.Add(photo);
                         photos.Add(photo);
                     }
                 }
             }
-            // else it ddisplays all the photos without any filter
+            // else it displays all the photos without any filter
             
         }
 
@@ -76,12 +84,14 @@ namespace UWPPhotoLibrary
             if (AllPhotosGrid.SelectedItems.Count == 1 && AllPhotosGrid.SelectedItems[0].Equals(clickItem))
             {
                 FavoriteButton.IsEnabled = false;
-                FullScreenButton.IsEnabled = false;
+                ComboAlbums.IsEnabled = false;
+
+
             }
             else if (FavoriteButton.IsEnabled != true)
             {
                 FavoriteButton.IsEnabled = true;
-                FullScreenButton.IsEnabled = true;
+                ComboAlbums.IsEnabled = true;
             }
 
 
@@ -99,7 +109,7 @@ namespace UWPPhotoLibrary
         }
 
         
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        /*private void FullScreenButton_Click(object sender, RoutedEventArgs e)
         {
             var SelectedPhotosList = new List<Photo>();
             var SelectedPhotos = AllPhotosGrid.SelectedItems;
@@ -108,10 +118,24 @@ namespace UWPPhotoLibrary
                 SelectedPhotosList.Add((Photo)SelectedPhotos[i]);
             }
             Frame.Navigate(typeof(SingleImage), SelectedPhotosList);
-        }
+        }*/
 
-       
+        private void Image_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            int startingPositionPhoto = 0;
+            //var doubleTapped = new Photo();
+            var selectedPhoto = (Photo)AllPhotosGrid.SelectedItems[0];
+            if (photos.Contains(selectedPhoto))
+            {
+                 startingPositionPhoto = photos.IndexOf(selectedPhoto);
+            }
+            var Ps = new PhotoSelection();
+            Ps.SelectedPhotoPosition = startingPositionPhoto;
+            Ps.Photos = photos;
+            Frame.Navigate(typeof(SingleImage), Ps);
+        }
 
 
     }
+    
 }

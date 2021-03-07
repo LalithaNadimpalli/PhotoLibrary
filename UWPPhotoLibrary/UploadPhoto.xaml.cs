@@ -32,9 +32,11 @@ namespace UWPPhotoLibrary
         public  UploadPhoto(Frame frame)
         {
             Frame = frame;
+
             this.InitializeComponent();
 
          
+
 
         }
 
@@ -74,9 +76,12 @@ namespace UWPPhotoLibrary
             var ToBeUploadedPhotosList = new List<Photo>();
             foreach (StorageFile imageFile in SelectedPhotosList)
             {
+
                 // var uri = new System.Uri(imageFile.Path);
+
                 var image = new Photo(imageFile.Name, imageFile);
                 ToBeUploadedPhotosList.Add(image);
+
 
             }
            
@@ -88,6 +93,7 @@ namespace UWPPhotoLibrary
             //(Window.Current. as Frame)?.Navigate(typeof(AllPhotosPage), ToBeUploadedPhotosList);
 
         }
+
 
         
     }

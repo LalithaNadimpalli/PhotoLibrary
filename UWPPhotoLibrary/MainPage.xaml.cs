@@ -103,9 +103,13 @@ namespace UWPPhotoLibrary
         private async void Upload_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new UploadPhoto(MyFrame);
+            await dialog.ShowAsync();                  
+        }
+
+        private async void NewAlbum_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new NewAlbum(MyFrame);
             await dialog.ShowAsync();
-          //  MyFrame.Navigate(typeof(AllPhotosPage));
-                   
         }
 
         private async void CreateAlbum_Click(object sender, RoutedEventArgs e)
