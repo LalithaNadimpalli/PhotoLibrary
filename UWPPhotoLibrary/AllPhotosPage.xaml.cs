@@ -7,7 +7,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UWPPhotoLibrary.Model;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,9 +24,9 @@ namespace UWPPhotoLibrary
     /// </summary>
     public sealed partial class AllPhotosPage : Page
     {
-
-        private ObservableCollection<Photo> photos;
-        private IReadOnlyList<StorageFile> SelectedPhotosList;
+        private static ObservableCollection<Photo> staticPhotos = PhotoManager.GetAllPhotos();
+        public ObservableCollection<Photo> photos;
+        private HashSet<Album> hashAlbums = new HashSet<Album>();
 
 
         public AllPhotosPage()
@@ -135,7 +134,27 @@ namespace UWPPhotoLibrary
             Frame.Navigate(typeof(SingleImage), Ps);
         }
 
+     
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e != null && e.AddedItems != null)
+            {
+                var album = (Album)ComboAlbums.SelectedItem;               
+                var albumPhotos = new List<Photo>();
+                var selectedPhotos = AllPhotosGrid.SelectedItems;
+                for (var i = 0; i < selectedPhotos.Count; i++)
+                {
+                    albumPhotos.Add((Photo)selectedPhotos[i]);
+                }
+                album.AlbumListPhotos.AddRange(albumPhotos);
+                //album.AlbumListPhotos = albumPhotos;
+                Frame.Navigate(typeof(AlbumContentPage), album);
+
+
+            }
+
+        }
     }
     
 }

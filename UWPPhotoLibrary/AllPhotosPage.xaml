@@ -6,8 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:UWPPhotoLibrary.Model"
     mc:Ignorable="d">
-
-    <ScrollViewer>
+    <ScrollViewer x:Name="Scroll">
 
         <Grid Background="Beige">
             <Grid.RowDefinitions>
@@ -32,21 +31,20 @@
             </RelativePanel>
             <GridView Grid.Row="1" Name="AllPhotosGrid" ItemsSource="{x:Bind photos}" IsItemClickEnabled="True"
                               SelectionMode="Multiple" ItemClick="AllPhotosGrid_ItemClick"
-                  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled">
+                  ScrollViewer.VerticalScrollBarVisibility="Visible">
 
-
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="data:Photo">
-                    <StackPanel>
-                        <Image Name="Image" Height="300" Width="200" Source="{Binding Path=bmImage}"
-                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,0" />
-                    <TextBlock Name="ImageName" FontSize="20" Text="{x:Bind Name}"/>
-                    </StackPanel>
-
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-    </Grid>
-    </ScrollViewer>
-
+                <GridView.ItemTemplate> 
+                    <DataTemplate x:DataType="data:Photo">
+                        <StackPanel>
+                            <Image Name="Image" Height="175" Width="200" Source="{Binding Path=bmImage}"
+                                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" 
+                           IsDoubleTapEnabled="True" DoubleTapped="Image_DoubleTapped" Stretch="UniformToFill"/>
+                            <TextBlock Name="ImageName" FontSize="15" Text="{x:Bind Name}" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+            
+        </Grid>
+    </ScrollViewer >
 </Page>

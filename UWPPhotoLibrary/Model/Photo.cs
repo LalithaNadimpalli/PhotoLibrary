@@ -79,7 +79,7 @@ namespace UWPPhotoLibrary.Model
             }
         }
 
-       /* public override bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             var value = (Photo)obj;
             if (value.Name.Equals(Name))
@@ -89,7 +89,7 @@ namespace UWPPhotoLibrary.Model
             return false;
         }
 
-       /* public override int GetHashCode()
+        public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
