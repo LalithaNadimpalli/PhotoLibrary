@@ -134,6 +134,12 @@
     <Compile Include="FavoritesPage.xaml.cs">
       <DependentUpon>FavoritesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomAlbum.xaml.cs">
+      <DependentUpon>CustomAlbum.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAlbum.xaml.cs">
+      <DependentUpon>CreateAlbum.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -264,9 +270,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="NewAlbum.xaml">
-      <SubType>Designer</SubType>
+
+    <Page Include="CreateAlbum.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomAlbum.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+
     </Page>
     <Page Include="SingleImage.xaml">
       <SubType>Designer</SubType>
