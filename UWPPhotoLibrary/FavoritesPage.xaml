@@ -13,17 +13,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RelativePanel>
-
-            <TextBlock Name="FavoritesPage1" Text="Favorites" FontStyle="Italic" FontWeight="Bold" FontSize="18"
-                    RelativePanel.AlignLeftWithPanel="True" Margin="12,0,0,0"/>
+            <TextBlock Name="FavoritesPage1" Text="Favorites" FontStyle="Italic" FontWeight="Bold" FontSize="14"
+                    RelativePanel.AlignLeftWithPanel="True"/>
         </RelativePanel>
         <GridView Grid.Row="1" Name="FavoritesGrid" ItemsSource="{x:Bind FavPhotos}" IsItemClickEnabled="True">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:Photo">
                     <StackPanel>
-                        <Image Name="Image" Height="175" Width="200"  VerticalAlignment="Center" HorizontalAlignment="Center"  Source="{x:Bind bmImage}" 
-                                     Stretch="UniformToFill" DoubleTapped="Image_DoubleTapped" Margin="10,10,10,10"/>
-                        <TextBlock Name="ImageName" FontSize="15" Text="{x:Bind Name}" Margin="10,0,0,0"/>
+                        <Image Name="Image" Height="80" Width="80" Source="{x:Bind ImageFile}" 
+                                   Margin="40,45,40,10"/>
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>

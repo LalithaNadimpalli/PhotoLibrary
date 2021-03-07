@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sushm\\OneDrive\\Documents\\GitHub\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj": {}
+    "C:\\Users\\Lalitha\\Documents\\Github Files\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sushm\\OneDrive\\Documents\\GitHub\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj": {
+    "C:\\Users\\Lalitha\\Documents\\Github Files\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sushm\\OneDrive\\Documents\\GitHub\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\Lalitha\\Documents\\Github Files\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj",
         "projectName": "UWPPhotoLibrary",
-        "projectPath": "C:\\Users\\sushm\\OneDrive\\Documents\\GitHub\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj",
-        "packagesPath": "C:\\Users\\sushm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sushm\\OneDrive\\Documents\\GitHub\\PhotoLibrary\\UWPPhotoLibrary\\obj\\",
+        "projectPath": "C:\\Users\\Lalitha\\Documents\\Github Files\\PhotoLibrary\\UWPPhotoLibrary\\UWPPhotoLibrary.csproj",
+        "packagesPath": "C:\\Users\\Lalitha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lalitha\\Documents\\Github Files\\PhotoLibrary\\UWPPhotoLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\sushm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Lalitha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

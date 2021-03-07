@@ -23,15 +23,33 @@ namespace UWPPhotoLibrary
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AllPhotosPage : Page
+    public sealed partial class CustomAlbum : Page
     {
         private ObservableCollection<Photo> photos;
         private IReadOnlyList<StorageFile> SelectedPhotosList;
 
-        public AllPhotosPage()
+        private static HashSet<Photo> PhotoSet = new HashSet<Photo>();
+        private static string AlbumContent;
+        private object CatrgorySet;
+
+        public CustomAlbum()
         {
             this.InitializeComponent();
-            photos = PhotoManager.GetAllPhotos();
+            if (PhotoSet.Count < 1)
+            {
+                photos = PhotoManager.GetAllPhotos();
+            }
+            else
+            {
+                photos = PhotoManager.GetAllPhotos();
+                photos.Clear();
+                foreach (var value in PhotoSet)
+                {
+                    CustomAlbumButton.Content = AlbumContent;
+                    photos.Add(value);
+                }
+            }
+
         }
 
         public ObservableCollection<Photo> GetPhotos()
@@ -39,9 +57,6 @@ namespace UWPPhotoLibrary
             return photos;
         }
 
-        /*Below If we dont overide OnNavigatedTo method in this page(AllPhotosPage), There wont be any function to perform and 
-         the page will display allPhotos without any filter. 
-        So, actully we need filter in that page, so we are calling GetPhotosByCategory from photomanager*/
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e != null && e.Parameter != null)
@@ -55,13 +70,37 @@ namespace UWPPhotoLibrary
                 else if (e.Parameter.GetType() == typeof(List<Photo>))
                 {
                     var pickedPhotos = (List<Photo>)e.Parameter;
+                    photos.Clear();
+                    PhotoSet.Clear();
                     foreach (var photo in pickedPhotos)
                     {
                         photos.Add(photo);
+                        PhotoSet.Add(photo);
                     }
+
+                }
+                else if (e.Parameter.GetType() == typeof(string))
+                {
+                    var albumname = (string)e.Parameter;
+                    CustomAlbumButton.Content = "Add Photos to " + albumname;
+                    AlbumContent = (string)CustomAlbumButton.Content;
                 }
             }
-            // else it ddisplays all the photos without any filter
+        }
+
+        private void CustomAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            var custom = new List<Photo>();
+            var CustomImage = AllPhotosGrid.SelectedItems;
+            for (var i = 0; i < CustomImage.Count; i++)
+            {
+                custom.Add((Photo)CustomImage[i]);
+
+            }
+            Frame.Navigate(typeof(CustomAlbum), custom);
+
+
+
 
         }
 
@@ -75,40 +114,36 @@ namespace UWPPhotoLibrary
             it means the selected items list size is equal to 1, then the favorite button will get disabled.*/
             if (AllPhotosGrid.SelectedItems.Count == 1 && AllPhotosGrid.SelectedItems[0].Equals(clickItem))
             {
-                FavoriteButton.IsEnabled = false;
+                CustomAlbumButton.IsEnabled = false;
                 FullScreenButton.IsEnabled = false;
+                CoverImageButton.IsEnabled = false;
             }
-            else if (FavoriteButton.IsEnabled != true)
+            else if (CustomAlbumButton.IsEnabled != true)
             {
-                FavoriteButton.IsEnabled = true;
+                CustomAlbumButton.IsEnabled = true;
+                CoverImageButton.IsEnabled = true;
                 FullScreenButton.IsEnabled = true;
+
             }
+           
 
 
-        }
-
-        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
-        {
-            var favs = new List<Photo>();
-            var selectedFavorites = AllPhotosGrid.SelectedItems;
-            for (var i = 0; i < selectedFavorites.Count; i++)
-            {
-                favs.Add((Photo)selectedFavorites[i]);
-            }
-            Frame.Navigate(typeof(FavoritesPage), favs);
         }
 
 
         private void FullScreenButton_Click(object sender, RoutedEventArgs e)
         {
-            var SelectedPhotosList = new List<Photo>();
-            var SelectedPhotos = AllPhotosGrid.SelectedItems;
-            for (var i = 0; i < SelectedPhotos.Count; i++)
+            var custom = new List<Photo>();
+            var CustomImage = AllPhotosGrid.SelectedItems;
+            for (var i = 0; i < CustomImage.Count; i++)
             {
-                SelectedPhotosList.Add((Photo)SelectedPhotos[i]);
+                custom.Add((Photo)CustomImage[i]);
+
             }
-            Frame.Navigate(typeof(SingleImage), SelectedPhotosList);
+            Frame.Navigate(typeof(SingleImage), custom);
+
         }
+
         private void CoverImageButton_Click(object sender, RoutedEventArgs e)
         {
             var custom = new List<Photo>();
@@ -123,9 +158,12 @@ namespace UWPPhotoLibrary
                 Frame.Navigate(typeof(CategoryPage), (Photo)CustomImage[i]);
             }
 
-
-
-
         }
     }
 }
+
+
+        
+
+    
+

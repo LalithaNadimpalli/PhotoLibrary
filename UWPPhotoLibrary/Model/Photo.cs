@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace UWPPhotoLibrary.Model
 {
-    public enum AssetFolderName
+    public enum AlbumName
     {
         Animals,
         Babies,
@@ -25,7 +25,7 @@ namespace UWPPhotoLibrary.Model
     }
     public class Photo
     {
-        public AssetFolderName AlbumName { get; set; }
+        public AlbumName AlbumName { get; set; }
         public string ImageFile { get; set; }
         public DateTime DateCreated { get; }
         public string Name { get; set; }
@@ -33,14 +33,14 @@ namespace UWPPhotoLibrary.Model
         public BitmapImage bmImage { get; set; }
 
         public int ID { get; set; }
-        //private static int lastImageID = 0;
+        private static int lastImageID = 0;
 
         //Below is the constructor
         public Photo()
         {
 
         }
-        public Photo(String name, AssetFolderName albumName)
+        public Photo(String name, AlbumName albumName)
         {
 
             Name = name;
@@ -54,18 +54,16 @@ namespace UWPPhotoLibrary.Model
             //   MyMediaElement.Source = new Uri(BaseUri, sound.AudioFile);
             DateCreated = DateTime.Now;
         }
-
-        /*public Photo(String name, Uri uri)
+        public Photo(String name, Uri uri)
         {
             Name = name;
             ImageFile = uri.AbsoluteUri;
             bmImage = new BitmapImage();
             bmImage.UriSource = uri;
             bmImage.AutoPlay = true;
-        }*/
+        }
 
         public Photo(String name, StorageFile file) {
-            Name = name;
             bmImage = new BitmapImage();
             setImage(file);
 
@@ -79,7 +77,7 @@ namespace UWPPhotoLibrary.Model
             }
         }
 
-        public override bool Equals(object obj)
+       /* public override bool Equals(object obj)
         {
             var value = (Photo)obj;
             if (value.Name.Equals(Name))
@@ -89,10 +87,40 @@ namespace UWPPhotoLibrary.Model
             return false;
         }
 
-        public override int GetHashCode()
+       /* public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
-      
+
+        /*public static async void AddImageAsync(Photo image)
+        {
+            var imageFile = image.SourceImageFile;
+            var localFolder = ApplicationData.Current.LocalFolder;
+            ImageProperties imageProperties = await imageFile.Properties.GetImagePropertiesAsync();
+            try
+            {
+                try
+                {
+                    Windows.Storage.StorageFile existingFile = await localFolder.GetFileAsync(imageFile.Name);
+                }
+                catch (FileNotFoundException)
+                {
+                    await imageFile.CopyAsync(localFolder);
+                }
+
+                image.Name = imageFile.Name;
+                image.ID = ++lastImageID;
+                
+
+            }
+            catch (ArgumentException ex)
+            {
+                var messageDialog = new MessageDialog(ex.Message);
+                await messageDialog.ShowAsync();
+                return;
+            }
+        }*/
+
+
     }
 }
